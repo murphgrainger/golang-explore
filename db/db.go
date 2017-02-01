@@ -11,12 +11,9 @@ type Person struct {
   ID    string `json:"id" bson:"_id,omitempty"`
   Firstname string `json:"firstname,omitempty"`
   Lastname string `json:"lastname,omitempty"`
-  Address *Address `json:"address,omitempty"`
-}
+  Address string `json:"address,omitempty"`
+  Age int `json:"age,omitempty"`
 
-type Address struct {
-  City string `json:"city,omitempty"`
-  State string `json:"state,omitempty"`
 }
 
 var db *mgo.Database
@@ -31,12 +28,12 @@ func init() {
 }
 
 func collection() *mgo.Collection {
-	return db.C("items")
+	return db.C("people")
 }
 
 // GetAll returns all items from the database.
-func GetAll() ([]Item, error) {
-	res := []Item{}
+func GetAll() ([]Person, error) {
+	res := []Person{}
 
 	if err := collection().Find(nil).All(&res); err != nil {
 		return nil, err
@@ -46,8 +43,8 @@ func GetAll() ([]Item, error) {
 }
 
 // GetOne returns a single item from the database.
-func GetOne(id string) (*Item, error) {
-	res := Item{}
+func GetOne(id string) (*Person, error) {
+	res := Person{}
 
 	if err := collection().Find(bson.M{"_id": id}).One(&res); err != nil {
 		return nil, err
@@ -56,12 +53,12 @@ func GetOne(id string) (*Item, error) {
 	return &res, nil
 }
 
-// Save inserts an item to the database.
-func Save(item Item) error {
-	return collection().Insert(item)
+// Save inserts a person to the database.
+func Save(person Person) error {
+	return collection().Insert(person)
 }
 
-// Remove deletes an item from the database
+// Remove deletes an person from the database
 func Remove(id string) error {
 	return collection().Remove(bson.M{"_id": id})
 }
