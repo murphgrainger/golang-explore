@@ -9,7 +9,6 @@ import (
   "github.com/gorilla/mux"
 
   )
-  // "strconv"
 
 
   // GetAllItems returns a list of all database items to the response.
@@ -52,14 +51,15 @@ func CreatePersonEndpoint(w http.ResponseWriter, req *http.Request) {
 	ID := req.FormValue("id")
   Firstname := req.FormValue("firstname")
   Lastname := req.FormValue("lastname")
-  Address := req.FormValue("address")
+  City := req.FormValue("city")
 
-	person := db.Person{ID: ID, Firstname: Firstname, Lastname: Lastname, Address: Address}
-  db.Save(person)
-  // if err = db.Save(person); err != nil {
-  // 		handleError(err, "Failed to save data: %v", w)
-  // 		return
-  // 	}
+
+  person:= db.Person{ID: ID, Firstname: Firstname, Lastname: Lastname, City: City}
+
+  if err = db.Save(person); err != nil {
+  		handleError(err, "Failed to save data: %v", w)
+  		return
+  	}
 
 	w.Write([]byte("OK"))
 }

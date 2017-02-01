@@ -11,13 +11,13 @@ type Person struct {
   ID    string `json:"id" bson:"_id,omitempty"`
   Firstname string `json:"firstname,omitempty"`
   Lastname string `json:"lastname,omitempty"`
-  Address string `json:"address,omitempty"`
+  City string `json:"city,omitempty"`
 }
 
 var db *mgo.Database
 
 func init() {
-	session, err := mgo.Dial("localhost/api_db")
+	session, err := mgo.Dial("MONGODB_URL")
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
