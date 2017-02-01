@@ -8,9 +8,9 @@ import (
 
 func main()  {
   router := mux.NewRouter()
-  router.HandleFunc("/people", GetPeopleEndpoint).Methods("GET")
-  // router.HandleFunc("/people/{id}", GetPersonEndpoint).Methods("GET")
-  // router.HandleFunc("/people/{id}", CreatePersonEndpoint).Methods("POST")
-  // router.HandleFunc("/people/{id}", DeletePersonEndpoint).Methods("DELETE")
+  router.HandleFunc("/api/people", api.GetPeopleEndpoint).Methods("GET")
+  router.HandleFunc("/api/people/{id}", api.GetPersonEndpoint).Methods("GET")
+  // router.HandleFunc("/api/people/{id}", api.CreatePersonEndpoint).Methods("POST")
+  router.HandleFunc("/api/people/{id}", api.DeletePersonEndpoint).Methods("DELETE")
   http.ListenAndServe(":3000", router)
 }
