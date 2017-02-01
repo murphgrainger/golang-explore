@@ -1,43 +1,39 @@
 package api
 
 import (
-  "encoding/json"
-  "log"
   "net/http"
 
-  "gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
-
-
-  "github.com/gorilla/mux"
+  "encoding/json"
+  "fmt"
   "github.com/murphgrainger/goproject/db"
-  "strconv"
 
   )
 
+  // "github.com/gorilla/mux"
+  // "strconv"
 
 
   // GetAllItems returns a list of all database items to the response.
-  func GetPeopleEndpoint(w http.ResponseWriter, req *http.Request) {
-  	rs, err := db.GetAll()
-  	if err != nil {
-  		handleError(err, "Failed to load database items: %v", w)
-  		return
-  	}
+func GetPeopleEndpoint(w http.ResponseWriter, req *http.Request) {
+	rs, err := db.GetAll()
+	if err != nil {
+		handleError(err, "Failed to load database items: %v", w)
+		return
+	}
 
-  	bs, err := json.Marshal(rs)
-  	if err != nil {
-  		handleError(err, "Failed to load marshal data: %v", w)
-  		return
-  	}
+	bs, err := json.Marshal(rs)
+	if err != nil {
+		handleError(err, "Failed to load marshal data: %v", w)
+		return
+	}
 
-  	w.Write(bs)
-  }
+	w.Write(bs)
+}
 
 // func GetPeopleEndpoint(w http.ResponseWriter, req *http.Request)  {
 //   json.NewEncoder(w).Encode(people)
 // }
-//
+
 // func GetPersonEndpoint(w http.ResponseWriter, req *http.Request)  {
 //   params :=mux.Vars(req)
 //   for _, item := range people {
