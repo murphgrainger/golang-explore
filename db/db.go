@@ -12,8 +12,6 @@ type Person struct {
   Firstname string `json:"firstname,omitempty"`
   Lastname string `json:"lastname,omitempty"`
   Address string `json:"address,omitempty"`
-  Age int `json:"age,omitempty"`
-
 }
 
 var db *mgo.Database

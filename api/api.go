@@ -12,8 +12,6 @@ import (
   // "strconv"
 
 
-
-
   // GetAllItems returns a list of all database items to the response.
 func GetPeopleEndpoint(w http.ResponseWriter, req *http.Request) {
 	rs, err := db.GetAll()
@@ -50,24 +48,21 @@ func GetPersonEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Write(bs)
 }
 
-// func CreatePersonEndpoint(w http.ResponseWriter, req *http.Request) {
-// 	ID := req.FormValue("id")
-// 	valueStr := req.FormValue("value")
-// 	value, err := strconv.Atoi(valueStr)
-// 	if err != nil {
-// 		handleError(err, "Failed to parse input data: %v", w)
-// 		return
-// 	}
-//
-// 	item := db.Item{ID: ID, Value: value}
-//
-// 	if err = db.Save(item); err != nil {
-// 		handleError(err, "Failed to save data: %v", w)
-// 		return
-// 	}
-//
-// 	w.Write([]byte("OK"))
-// }
+func CreatePersonEndpoint(w http.ResponseWriter, req *http.Request) {
+	ID := req.FormValue("id")
+  Firstname := req.FormValue("firstname")
+  Lastname := req.FormValue("lastname")
+  Address := req.FormValue("address")
+
+	person := db.Person{ID: ID, Firstname: Firstname, Lastname: Lastname, Address: Address}
+  db.Save(person)
+  // if err = db.Save(person); err != nil {
+  // 		handleError(err, "Failed to save data: %v", w)
+  // 		return
+  // 	}
+
+	w.Write([]byte("OK"))
+}
 
 func DeletePersonEndpoint(w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
